@@ -20,10 +20,12 @@ public class RT {
     }
   }
 
+  @SuppressWarnings("unused")
   private static void probe(String method, int line) {
     System.err.println("PROBE: called each time " + method + " at " + line);
   }
 
+  @SuppressWarnings("unused")
   public static CallSite bsm(Lookup lookup, String name, MethodType type, String method, int line) {
     System.err.println("BSM: called from class " + lookup.lookupClass().getName());
     System.err.println("            from method " + method + " at line " + line);
