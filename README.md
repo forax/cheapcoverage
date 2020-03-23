@@ -16,13 +16,16 @@ This project requires Java 14.
 ### How it works ?
 There are two source files
 - Main
+
   Load the classfile of Calculator.class as a byte array
   Transform it using [ASM](https://asm.ow2.io/) into another byte array
   The transformation add instructions __invokedynamic__ to the method RT.bsm() at each line of the code
   Define the byte array as a class
   Use a method handle to dynamically call the method sum of the new class
   Call the method handle
+
 - RT
+
   Its method bsm is called once per instruction __invokedynamic__, the first time the VM try to execute it
   It return a method handle to the method `probe` that will be calls as many times as the instruction is executed
 
@@ -69,6 +72,7 @@ is compiled to
         offset_delta = 13
 
 ```
+The class file format is described in [section 4](https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html) of the Java Virtual Machine Specification.
 
 
 ### Output
