@@ -8,7 +8,7 @@ import static java.lang.constant.ConstantDescs.CD_int;
 import static java.lang.invoke.MethodHandles.lookup;
 import static java.lang.invoke.MethodType.methodType;
 import static org.objectweb.asm.ClassWriter.COMPUTE_FRAMES;
-import static org.objectweb.asm.Opcodes.ASM7;
+import static org.objectweb.asm.Opcodes.ASM8;
 import static org.objectweb.asm.Opcodes.H_INVOKESTATIC;
 
 import java.lang.constant.MethodTypeDesc;
@@ -37,12 +37,12 @@ public class Main {
     var reader = new ClassReader(data);
     var writer = new ClassWriter(reader, COMPUTE_FRAMES);
     reader.accept(
-        new ClassVisitor(ASM7, writer) {
+        new ClassVisitor(ASM8, writer) {
           @Override
           public MethodVisitor visitMethod(
               int access, String name, String descriptor, String signature, String[] exceptions) {
             var mv = super.visitMethod(access, name, descriptor, signature, exceptions);
-            return new MethodVisitor(ASM7, mv) {
+            return new MethodVisitor(ASM8, mv) {
               @Override
               public void visitLineNumber(int line, Label start) {
                 super.visitInvokeDynamicInsn("probe", "()V", BSM, name + descriptor, line);
